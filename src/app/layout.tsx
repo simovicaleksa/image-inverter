@@ -3,6 +3,7 @@ import "~/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { cn } from "~/lib/utils";
+import { FilesProvider } from "~/hooks/use-files";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -17,7 +18,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       className={cn(inter.variable, "font-sans", inter.variable)}
       lang="en"
     >
-      <body>{children}</body>
+      <body className="bg-neutral-900">
+        <FilesProvider>{children}</FilesProvider>
+      </body>
     </html>
   );
 }
