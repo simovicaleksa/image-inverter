@@ -1,10 +1,12 @@
 "use client";
 
-import { createContext, use, useState, type Dispatch, type SetStateAction } from "react";
+import { createContext, use, useEffect, useState, type Dispatch, type SetStateAction } from "react";
+import type { RichFile } from "~/types/file";
 
 type FilesContextType = {
-  files: Blob[];
-  setFiles: Dispatch<SetStateAction<Blob[]>>;
+  files: RichFile[];
+  setFiles: Dispatch<SetStateAction<RichFile[]>>;
+  addFiles: (files: File[]) => void;
 };
 
 const FilesContext = createContext<FilesContextType | null>(null);
@@ -14,9 +16,28 @@ type Props = {
 };
 
 export function FilesProvider(props: Props) {
-  const [files, setFiles] = useState<Blob[]>([]);
+  const [files, setFiles] = useState<RichFile[]>([]);
 
-  return <FilesContext.Provider value={{ files, setFiles }}>{props.children}</FilesContext.Provider>;
+  function addFiles(files: File[]) {
+    const richFiles = files.map((file) => {
+      const url = URL.createObjectURL(file);
+      const id = crypto.randomUUID();
+
+      return { id, file, url };
+    });
+
+    setFiles(richFiles);
+  }
+
+  useEffect(() => {
+    return () => {
+      files.forEach((file) => {
+        URL.revokeObjectURL(file.url);
+      });
+    };
+  }, [files]);
+
+  return <FilesContext.Provider value={{ files, setFiles, addFiles }}>{props.children}</FilesContext.Provider>;
 }
 
 export function useFiles() {
