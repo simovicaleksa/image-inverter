@@ -15,10 +15,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
-      className={cn(inter.variable, "font-sans", inter.variable)}
+      className={cn(inter.variable, "font-sans dark", inter.variable)}
       lang="en"
     >
-      <body className="bg-neutral-900">
+      <body className="bg-background">
         <FilesProvider>{children}</FilesProvider>
       </body>
     </html>
