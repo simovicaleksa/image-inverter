@@ -23,7 +23,7 @@ export default function HomePage() {
 				<Dropzone />
 
 				{!filesEmpty && (
-					<div className="flex flex-col gap-5">
+					<div className="flex flex-col gap-3">
 						<div className="flex flex-row items-center justify-between">
 							<span className="text-muted-foreground text-sm">{`Files: ${files.length}`}</span>
 							<ClearButton />
