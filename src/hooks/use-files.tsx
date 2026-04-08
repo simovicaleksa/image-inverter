@@ -7,8 +7,10 @@ import {
 	use,
 	useCallback,
 	useEffect,
+	useRef,
 	useState,
 } from "react";
+import { getImageDimensions } from "~/lib/file";
 import type { RichFile } from "~/types/file";
 
 type FilesContextType = {
@@ -22,23 +24,41 @@ const FilesContext = createContext<FilesContextType | null>(null);
 export function FilesProvider({ children }: { children: React.ReactNode }) {
 	const [files, setFiles] = useState<RichFile[]>([]);
 
-	const addFiles = useCallback((files: File[]) => {
-		const richFiles = files.map((file) => {
-			const url = URL.createObjectURL(file);
-			const id = crypto.randomUUID();
+	const addFiles = useCallback(async (newFiles: File[]) => {
+		const richFiles = await Promise.all(
+			newFiles.map(async (file) => {
+				const url = URL.createObjectURL(file);
+				const id = crypto.randomUUID();
 
-			return { id, file, url };
-		});
+				let width = 0;
+				let height = 0;
 
-		setFiles(richFiles);
+				try {
+					const dimensions = await getImageDimensions(file);
+					width = dimensions.width;
+					height = dimensions.height;
+				} catch {}
+
+				return { id, file, url, width, height };
+			}),
+		);
+
+		setFiles((prev) => [...prev, ...richFiles]);
 	}, []);
 
+	// cleanup unused object urls to prevent memory leak
+	const prevFilesRef = useRef<RichFile[]>([]);
 	useEffect(() => {
-		return () => {
-			files.forEach((file) => {
-				URL.revokeObjectURL(file.url);
-			});
-		};
+		const prevFiles = prevFilesRef.current;
+
+		prevFiles.forEach((prevFile) => {
+			const stillExists = files.some((f) => f.id === prevFile.id);
+			if (!stillExists) {
+				URL.revokeObjectURL(prevFile.url);
+			}
+		});
+
+		prevFilesRef.current = files;
 	}, [files]);
 
 	return (
