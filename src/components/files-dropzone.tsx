@@ -29,7 +29,7 @@ export function FilesDropzone() {
 		<div
 			{...getRootProps()}
 			className={cn(
-				"flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed p-5 text-center duration-200 hover:border-foreground",
+				"flex h-48 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed p-5 text-center duration-200 hover:border-foreground",
 				{
 					"scale-105 border-foreground": isDragActive,
 				},
