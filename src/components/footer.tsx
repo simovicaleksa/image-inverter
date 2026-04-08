@@ -15,9 +15,9 @@ export function Footer() {
 	return (
 		<footer
 			className={cn(
-				"fixed bottom-0 w-full border-t bg-secondary p-3 px-8 opacity-0 duration-200",
+				"pointer-events-none fixed bottom-0 w-full border-t bg-secondary p-3 px-8 opacity-0 duration-200",
 				{
-					"opacity-100": !isEmpty,
+					"pointer-events-auto opacity-100": !isEmpty,
 				},
 			)}
 		>
