@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { FilesProvider } from "~/hooks/use-files";
 import { LightboxProvider } from "~/hooks/use-lightbox";
+import { ProgressDialogProvider } from "~/hooks/use-progress-dialog";
 import { cn } from "~/lib/utils";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -23,7 +24,9 @@ export default function RootLayout({
 		>
 			<body className="bg-background">
 				<FilesProvider>
-					<LightboxProvider>{children}</LightboxProvider>
+					<LightboxProvider>
+						<ProgressDialogProvider>{children}</ProgressDialogProvider>
+					</LightboxProvider>
 				</FilesProvider>
 			</body>
 		</html>
