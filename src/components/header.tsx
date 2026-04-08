@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { ThemeSwitch } from "~/hooks/use-theme";
+import { Button } from "./ui/button";
+import { GitHub } from "./ui/github";
 
 export function Header() {
 	return (
@@ -9,7 +11,17 @@ export function Header() {
 					Image{" "}
 					<span className="bg-primary text-primary-foreground">Inverter</span>
 				</Link>
-				<div className="flex flex-row items-center gap-2">
+
+				<div className="flex flex-row items-center gap-3">
+					<a
+						href="https://github.com/simovicaleksa/image-inverter"
+						rel="noopener"
+						target="_blank"
+					>
+						<Button size={"icon"} variant={"ghost"}>
+							<GitHub className="size-5" />
+						</Button>
+					</a>
 					<ThemeSwitch />
 				</div>
 			</div>
