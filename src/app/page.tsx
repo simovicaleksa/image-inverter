@@ -1,23 +1,13 @@
 "use client";
 
-import { LucideX } from "lucide-react";
-import Image from "next/image";
 import { ClearButton } from "~/components/clear-button";
-import { FilesDropzone } from "~/components/files-dropzone";
-import { Button } from "~/components/ui/button";
-import {
-	Item,
-	ItemContent,
-	ItemDescription,
-	ItemMedia,
-	ItemTitle,
-} from "~/components/ui/item";
+import { Dropzone } from "~/components/dropzone";
+import { FileItem } from "~/components/file-item";
+
 import { useFiles } from "~/hooks/use-files";
-import { formatBytes, formatFileType } from "~/lib/format";
 
 export default function HomePage() {
-	const { files, setFiles } = useFiles();
-
+	const { files } = useFiles();
 	const filesEmpty = files.length === 0;
 
 	return (
@@ -30,7 +20,7 @@ export default function HomePage() {
 					</p>
 				</div>
 
-				<FilesDropzone />
+				<Dropzone />
 
 				{!filesEmpty && (
 					<div className="flex flex-col gap-5">
@@ -41,34 +31,7 @@ export default function HomePage() {
 
 						<div className="flex flex-col gap-2">
 							{files.map((item) => (
-								<Item key={item.url} variant={"outline"}>
-									<ItemMedia>
-										<Image
-											alt="image preview"
-											className="size-10 rounded object-cover"
-											height={30}
-											src={item.url}
-											width={30}
-										/>
-									</ItemMedia>
-									<ItemContent>
-										<ItemTitle>{item.file.name}</ItemTitle>
-										<ItemDescription className="uppercase">{`${formatFileType(item.file.type)} - ${formatBytes(item.file.size)}`}</ItemDescription>
-									</ItemContent>
-									<ItemContent>
-										<Button
-											onClick={() => {
-												setFiles((prev) =>
-													prev.filter((file) => file.id !== item.id),
-												);
-											}}
-											size={"icon-xs"}
-											variant={"destructive"}
-										>
-											<LucideX></LucideX>
-										</Button>
-									</ItemContent>
-								</Item>
+								<FileItem item={item} key={item.id} />
 							))}
 						</div>
 					</div>
