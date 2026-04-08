@@ -5,7 +5,7 @@ import { useDropzone } from "react-dropzone";
 import { useFiles } from "~/hooks/use-files";
 import { cn } from "~/lib/utils";
 
-export function FilesDropzone() {
+export function Dropzone() {
 	const { addFiles } = useFiles();
 
 	const onDrop = useCallback(
