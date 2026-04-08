@@ -17,7 +17,7 @@ export default function HomePage() {
 				<div className="flex flex-col items-center justify-center gap-2 text-center">
 					<h1 className="font-bold text-4xl">Image Inverter</h1>
 					<p className="text-muted-foreground">
-						Scan your film for free online!
+						Scan your film online for free!
 					</p>
 				</div>
 
@@ -26,7 +26,7 @@ export default function HomePage() {
 				{!filesEmpty && (
 					<div className="flex flex-col gap-3">
 						<div className="flex flex-row items-center justify-between">
-							<span className="text-muted-foreground text-sm">{`Images: ${files.length}`}</span>
+							<span className="text-muted-foreground text-sm">{`${files.length} ${files.length === 1 ? "image" : "images"}`}</span>
 							<ClearButton />
 						</div>
 

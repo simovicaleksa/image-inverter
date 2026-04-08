@@ -23,13 +23,15 @@ export function Footer() {
 		>
 			<div className="mx-auto flex w-full max-w-7xl flex-row items-center justify-between">
 				<div className="flex flex-col">
-					<span>Scanning {files.length} images</span>
+					<span>
+						Inverting {files.length} {files.length === 1 ? "image" : "images"}
+					</span>
 					<span className="text-muted-foreground text-sm">
 						Total: {formatBytes(totalSize)}
 					</span>
 				</div>
 				<Button onClick={invertBegin} size={"lg"}>
-					Convert
+					Invert
 				</Button>
 			</div>
 		</footer>
