@@ -106,7 +106,10 @@ function LightboxDialog({
 				>
 					<Image
 						alt="file lightbox"
-						className={cn("size-fit rounded-md object-contain")}
+						className={cn("size-fit rounded-md object-contain", {
+							"cursor-zoom-in": zoom === 1,
+							"cursor-zoom-out": zoom !== 1,
+						})}
 						height={current.height}
 						onClick={(e) => handleZoom(e)}
 						src={current.url}
