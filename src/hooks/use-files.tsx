@@ -19,11 +19,7 @@ type FilesContextType = {
 
 const FilesContext = createContext<FilesContextType | null>(null);
 
-type Props = {
-	children: React.ReactNode;
-};
-
-export function FilesProvider(props: Props) {
+export function FilesProvider({ children }: { children: React.ReactNode }) {
 	const [files, setFiles] = useState<RichFile[]>([]);
 
 	const addFiles = useCallback((files: File[]) => {
@@ -47,7 +43,7 @@ export function FilesProvider(props: Props) {
 
 	return (
 		<FilesContext.Provider value={{ files, setFiles, addFiles }}>
-			{props.children}
+			{children}
 		</FilesContext.Provider>
 	);
 }
