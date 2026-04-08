@@ -21,7 +21,7 @@ export function Footer() {
 				},
 			)}
 		>
-			<div className="mx-auto flex w-full max-w-7xl flex-row items-center justify-between">
+			<div className="mx-auto flex w-full max-w-4xl flex-row items-center justify-between">
 				<div className="flex flex-col">
 					<span>
 						Inverting {files.length} {files.length === 1 ? "image" : "images"}
