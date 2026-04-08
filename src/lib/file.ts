@@ -15,5 +15,5 @@ export async function zipFiles(files: File[]) {
 	});
 	const url = URL.createObjectURL(blob);
 
-	return url;
+	return { blob, url };
 }
