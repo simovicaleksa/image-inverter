@@ -23,6 +23,10 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
+			"a11y": "off",
+			"suspicious": {
+				"noArrayIndexKey": "off"
+			},
 			"recommended": true,
 			"nursery": {
 				"useSortedClasses": {
