@@ -2,6 +2,7 @@ import "~/styles/globals.css";
 
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { BackgroundGrid } from "~/components/background-grid";
 import { Header } from "~/components/header";
 import { FilesProvider } from "~/hooks/use-files";
 import { LightboxProvider } from "~/hooks/use-lightbox";
@@ -26,6 +27,7 @@ export default function RootLayout({
 			suppressHydrationWarning
 		>
 			<body className="bg-background">
+				<BackgroundGrid />
 				<ThemeProvider
 					attribute="class"
 					defaultTheme="system"
