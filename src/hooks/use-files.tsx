@@ -1,49 +1,61 @@
 "use client";
 
-import { createContext, use, useEffect, useState, type Dispatch, type SetStateAction } from "react";
+import {
+	createContext,
+	type Dispatch,
+	type SetStateAction,
+	use,
+	useCallback,
+	useEffect,
+	useState,
+} from "react";
 import type { RichFile } from "~/types/file";
 
 type FilesContextType = {
-  files: RichFile[];
-  setFiles: Dispatch<SetStateAction<RichFile[]>>;
-  addFiles: (files: File[]) => void;
+	files: RichFile[];
+	setFiles: Dispatch<SetStateAction<RichFile[]>>;
+	addFiles: (files: File[]) => void;
 };
 
 const FilesContext = createContext<FilesContextType | null>(null);
 
 type Props = {
-  children: React.ReactNode;
+	children: React.ReactNode;
 };
 
 export function FilesProvider(props: Props) {
-  const [files, setFiles] = useState<RichFile[]>([]);
+	const [files, setFiles] = useState<RichFile[]>([]);
 
-  function addFiles(files: File[]) {
-    const richFiles = files.map((file) => {
-      const url = URL.createObjectURL(file);
-      const id = crypto.randomUUID();
+	const addFiles = useCallback((files: File[]) => {
+		const richFiles = files.map((file) => {
+			const url = URL.createObjectURL(file);
+			const id = crypto.randomUUID();
 
-      return { id, file, url };
-    });
+			return { id, file, url };
+		});
 
-    setFiles(richFiles);
-  }
+		setFiles(richFiles);
+	}, []);
 
-  useEffect(() => {
-    return () => {
-      files.forEach((file) => {
-        URL.revokeObjectURL(file.url);
-      });
-    };
-  }, [files]);
+	useEffect(() => {
+		return () => {
+			files.forEach((file) => {
+				URL.revokeObjectURL(file.url);
+			});
+		};
+	}, [files]);
 
-  return <FilesContext.Provider value={{ files, setFiles, addFiles }}>{props.children}</FilesContext.Provider>;
+	return (
+		<FilesContext.Provider value={{ files, setFiles, addFiles }}>
+			{props.children}
+		</FilesContext.Provider>
+	);
 }
 
 export function useFiles() {
-  const context = use(FilesContext);
+	const context = use(FilesContext);
 
-  if (!context) throw new Error("useFiles must be used within a FilesProvider");
+	if (!context) throw new Error("useFiles must be used within a FilesProvider");
 
-  return context;
+	return context;
 }
