@@ -1,16 +1,19 @@
-export function getImageDimensions(
-	file: File,
-): Promise<{ width: number; height: number }> {
-	return new Promise((resolve, reject) => {
-		const img = new Image();
-		const url = URL.createObjectURL(file);
+import { zipSync } from "fflate";
 
-		img.onload = () => {
-			resolve({ width: img.width, height: img.height });
-			URL.revokeObjectURL(url);
-		};
+export async function zipFiles(files: File[]) {
+	const zipData: Record<string, Uint8Array> = {};
 
-		img.onerror = reject;
-		img.src = url;
+	for (const file of files) {
+		const arrayBuffer = await file.arrayBuffer();
+		zipData[file.name] = new Uint8Array(arrayBuffer);
+	}
+
+	const zipped = zipSync(zipData);
+
+	const blob = new Blob([new Uint8Array(zipped)], {
+		type: "application/zip",
 	});
+	const url = URL.createObjectURL(blob);
+
+	return url;
 }

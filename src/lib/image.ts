@@ -42,3 +42,20 @@ export async function invertImage(file: File): Promise<File> {
 
 	return new File([blob], file.name);
 }
+
+export function getImageDimensions(
+	file: File,
+): Promise<{ width: number; height: number }> {
+	return new Promise((resolve, reject) => {
+		const img = new Image();
+		const url = URL.createObjectURL(file);
+
+		img.onload = () => {
+			resolve({ width: img.width, height: img.height });
+			URL.revokeObjectURL(url);
+		};
+
+		img.onerror = reject;
+		img.src = url;
+	});
+}

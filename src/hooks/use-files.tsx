@@ -10,7 +10,7 @@ import {
 	useRef,
 	useState,
 } from "react";
-import { getImageDimensions } from "~/lib/file";
+import { getImageDimensions } from "~/lib/image";
 import type { RichFile } from "~/types/file";
 
 type FilesContextType = {
