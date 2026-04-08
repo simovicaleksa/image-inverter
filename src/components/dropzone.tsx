@@ -38,7 +38,7 @@ export function Dropzone() {
 			<span className="cursor-default text-foreground text-sm">
 				{isDragActive
 					? "Drop the file here..."
-					: "Drag & drop an image here, or click to select"}
+					: "Drag & drop images here, or click to select"}
 			</span>
 			<input {...getInputProps()} />
 		</div>
