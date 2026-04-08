@@ -6,36 +6,41 @@ import { useFiles } from "~/hooks/use-files";
 import { cn } from "~/lib/utils";
 
 export function FilesDropzone() {
-  const { addFiles } = useFiles();
+	const { addFiles } = useFiles();
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    // add files to the stack
+	const onDrop = useCallback(
+		(acceptedFiles: File[]) => {
+			// add files to the stack
 
-    addFiles(acceptedFiles);
-  }, []);
+			addFiles(acceptedFiles);
+		},
+		[addFiles],
+	);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: {
-      "image/*": []
-    },
-    maxFiles: 100
-  });
+	const { getRootProps, getInputProps, isDragActive } = useDropzone({
+		onDrop,
+		accept: {
+			"image/*": [],
+		},
+		maxFiles: 100,
+	});
 
-  return (
-    <div
-      {...getRootProps()}
-      className={cn(
-        "border-2 p-5 border-dashed rounded-xl min-h-64 flex flex-col items-center justify-center text-center duration-200 cursor-pointer hover:border-foreground",
-        {
-          "border-foreground scale-105": isDragActive
-        }
-      )}
-    >
-      <span className="text-sm text-foreground cursor-default">
-        {isDragActive ? "Drop the file here..." : "Drag & drop an image here, or click to select"}
-      </span>
-      <input {...getInputProps()} />
-    </div>
-  );
+	return (
+		<div
+			{...getRootProps()}
+			className={cn(
+				"flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed p-5 text-center duration-200 hover:border-foreground",
+				{
+					"scale-105 border-foreground": isDragActive,
+				},
+			)}
+		>
+			<span className="cursor-default text-foreground text-sm">
+				{isDragActive
+					? "Drop the file here..."
+					: "Drag & drop an image here, or click to select"}
+			</span>
+			<input {...getInputProps()} />
+		</div>
+	);
 }
