@@ -3,6 +3,7 @@
 import { ClearButton } from "~/components/clear-button";
 import { Dropzone } from "~/components/dropzone";
 import { FileItem } from "~/components/file-item";
+import { Footer } from "~/components/footer";
 
 import { useFiles } from "~/hooks/use-files";
 
@@ -11,8 +12,8 @@ export default function HomePage() {
 	const filesEmpty = files.length === 0;
 
 	return (
-		<main className="mt-20 flex size-full min-h-screen justify-center">
-			<section className="flex size-full max-w-xl flex-col gap-10 p-5">
+		<main className="my-20 flex size-full min-h-screen justify-center">
+			<section className="flex size-full max-w-xl flex-col gap-10 p-8">
 				<div className="flex flex-col items-center justify-center gap-2 text-center">
 					<h1 className="font-bold text-4xl">Image Inverter</h1>
 					<p className="text-muted-foreground">
@@ -37,6 +38,7 @@ export default function HomePage() {
 					</div>
 				)}
 			</section>
+			<Footer />
 		</main>
 	);
 }
