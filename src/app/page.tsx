@@ -26,7 +26,7 @@ export default function HomePage() {
 				{!filesEmpty && (
 					<div className="flex flex-col gap-3">
 						<div className="flex flex-row items-center justify-between">
-							<span className="text-muted-foreground text-sm">{`Files: ${files.length}`}</span>
+							<span className="text-muted-foreground text-sm">{`Images: ${files.length}`}</span>
 							<ClearButton />
 						</div>
 
