@@ -4,6 +4,7 @@ import { ClearButton } from "~/components/clear-button";
 import { Dropzone } from "~/components/dropzone";
 import { FileItem } from "~/components/file-item";
 import { Footer } from "~/components/footer";
+// import { Signature } from "~/components/signature";
 
 import { useFiles } from "~/hooks/use-files";
 
@@ -14,8 +15,9 @@ export default function HomePage() {
 	return (
 		<main className="my-20 flex size-full justify-center">
 			<section className="flex size-full max-w-xl flex-col gap-10 p-8">
-				<div className="flex flex-col items-center justify-center gap-2 text-center">
-					<h1 className="font-bold text-4xl">Image Inverter</h1>
+				<div className="flex flex-col items-center justify-center text-center">
+					{/*<Signature />*/}
+					<h1 className="mb-2 font-bold text-4xl">Image Inverter</h1>
 					<p className="text-muted-foreground">
 						Scan your film online for free!
 					</p>
