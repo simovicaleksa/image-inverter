@@ -31,7 +31,7 @@ export default function RootLayout({
 				<BackgroundGrid />
 				<ThemeProvider
 					attribute="class"
-					defaultTheme="system"
+					defaultTheme="dark"
 					disableTransitionOnChange
 					enableSystem
 				>
